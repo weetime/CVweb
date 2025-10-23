@@ -1,0 +1,9 @@
+# Computer Vision and MediaPipe for hand gesture detection
+opencv-python==4.8.1.78
+mediapipe==0.10.7
+
+# WebSocket communication
+websockets==12.0
+
+# Async support
+asyncio
