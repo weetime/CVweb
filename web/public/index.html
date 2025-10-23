@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>手势控制网页 Demo</title>
+  <style>
+    body {
+      height: 4000px;
+      background: linear-gradient(white, lightblue);
+      font-size: 2em;
+      text-align: center;
+    }
+    #status {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">等待手势...</div>
+  <script>
+    const status = document.getElementById('status');
+    const ws = new WebSocket(`ws://${location.host}`);
+    ws.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.type === "gesture") {
+        status.textContent = `检测到手势: ${msg.action}`;
+        if (msg.action === "scroll_up") window.scrollBy(0, -200);
+        if (msg.action === "scroll_down") window.scrollBy(0, 200);
+      }
+    };
+  </script>
+</body>
+</html>
